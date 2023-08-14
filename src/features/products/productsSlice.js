@@ -7,7 +7,7 @@ export const getProducts = createAsyncThunk(
     "products/getProducts",
     async (_, thunkAPI) => {
         try {
-            const res = await axios(`${BASE_URL}/search/mongodb`);
+            const res = await axios(`${BASE_URL}search/mongodb`);
             return res.data.books; // Возвращаем только список книг из ответа
         } catch (err) {
             console.log(err);

@@ -6,21 +6,23 @@ import styles from "../../styles/Products.module.css";
 const Products = ({ title, style = {}, products = [], amount }) => {
   const list = products.filter((_, i) => i < amount);
 
+  // console.log(products)
+
   return (
     <section className={styles.products} style={style}>
       {title && <h2>{title}</h2>}
 
       <div className={styles.list}>
-        {list.map(({ id, images, title, category: { name: cat }, price }) => (
-          <Link to={`/book/${id}`} key={id} className={styles.product}>
+        {list.map(({ isbn13, image, title, subtitle, price, url }) => (
+          <Link to={`/book/${isbn13}`} key={isbn13} className={styles.product}>
             <div
               className={styles.image}
-              style={{ backgroundImage: `url(${images[0]})` }}
+              style={{ backgroundImage: `url(${image})` }}
             />
 
             <div className={styles.wrapper}>
               <h3 className={styles.title}>{title}</h3>
-              <div className={styles.cat}>{cat}</div>
+              <div className={styles.cat}>{subtitle}</div>
               <div className={styles.info}>
                 <div className={styles.prices}>
                   <div className={styles.price}>{price}$</div>

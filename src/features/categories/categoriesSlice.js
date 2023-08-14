@@ -8,7 +8,7 @@ export const getCategories = createAsyncThunk(
     "categories/getCategories",
     async (_, thunkAPI) => {
         try {
-            const res = await axios(`${BASE_URL}/mongodb`);
+            const res = await axios(`${BASE_URL}new`);
             return res.data;
         } catch (err) {
             console.log(err);

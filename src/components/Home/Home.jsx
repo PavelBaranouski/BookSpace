@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const { list } = useSelector(({ products }) => products);
+
+  console.log(list, '')
+
   return (
     <>
       <Poster />
