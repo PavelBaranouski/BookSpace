@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import AppRoutes from "../Routes/Routes";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import Sidebar from "../Sidebar/Sidebar";
+// import Sidebar from "../Sidebar/Sidebar";
 
 import { getCategories } from "../../features/categories/categoriesSlice";
 import { getProducts } from "../../features/products/productsSlice";
@@ -22,7 +22,7 @@ const App = () => {
       <Header />
 
       <div className="conteiner">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <AppRoutes />
       </div>
 

@@ -8,8 +8,8 @@ export const getCategories = createAsyncThunk(
     "categories/getCategories",
     async (_, thunkAPI) => {
         try {
-            const res = await axios(`${BASE_URL}new`);
-            return res.data;
+            const res = await axios(`${BASE_URL}search/mongodb`);
+            return res.data.books;
         } catch (err) {
             console.log(err);
             return thunkAPI.rejectWithValue(err);
