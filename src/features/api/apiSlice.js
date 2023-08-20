@@ -1,18 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// Определите BASE_URL
-const BASE_URL = "https://api.itbook.store/1.0";
+import { buildUrl } from "../../utils/common";
+import { BASE_URL } from "../../utils/constants";
 
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-    tagTypes: ["Product"],
+    tagTypes: ["Books"],
     endpoints: (builder) => ({
         getProduct: builder.query({
-            query: ({ isbn13 }) => `/product/${isbn13}`,
-            providesTags: ["Product"]
-        })
-    })
+            query: ({ isbn13 }) => `/books/${isbn13}`,
+            providesTags: ["books"],
+        }),
+        getProducts: builder.query({
+            query: ({ params }) => buildUrl("/books", params),
+            providesTags: ["books"],
+        }),
+    }),
 });
 
-export const { useGetProduct } = apiSlice;
+export const { useGetProductQuery, useGetProductsQuery } = apiSlice;

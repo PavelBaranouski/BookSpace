@@ -11,7 +11,7 @@ const Products = ({ title, style = {}, products = [], amount }) => {
       {title && <h2>{title}</h2>}
 
       <div className={styles.list}>
-        {list.map(({ isbn13, image, title, subtitle, price, url }) => (
+        {list.map(({ isbn13, image, title, subtitle, price }) => (
           <Link to={`/book/${isbn13}`} key={isbn13} className={styles.product}>
             <div
               className={styles.image}
@@ -23,9 +23,9 @@ const Products = ({ title, style = {}, products = [], amount }) => {
               <div className={styles.cat}>{subtitle}</div>
               <div className={styles.info}>
                 <div className={styles.prices}>
-                  <div className={styles.price}>{price}$</div>
+                  <div className={styles.price}>{price}</div>
                   <div className={styles.oldPrice}>
-                    {Math.floor(price * 0.8)}$
+                    {Math.ceil(parseFloat(price.replace("$", "")) * 1.25)}$
                   </div>
                 </div>
 

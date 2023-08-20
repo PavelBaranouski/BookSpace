@@ -1,12 +1,43 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useGetProduct } from "../../features/api/apiSlice";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetProductQuery } from "../../features/api/apiSlice";
+import { ROUTES } from "../../utils/routes";
+import Product from "./Product";
 
-export const SingleProduct = () => {
+import Products from "./Products";
+import { useDispatch, useSelector } from "react-redux";
+import { getRelatedProducts } from "../../features/products/productsSlice";
+
+const SingleProduct = () => {
+  const dispatch = useDispatch();
   const { isbn13 } = useParams();
+  const navigate = useNavigate();
+  const { list, related } = useSelector(({ products }) => products);
 
-  const { data } = useGetProduct({ isbn13 }); // Используйте useGetProduct вместо useGetProductQuery
+  const { data, isLoading, isFetching, isSuccess } = useGetProductQuery({
+    isbn13,
+  });
 
-  console.log(data);
-  return <div>SingleProduct</div>;
+  useEffect(() => {
+    if (!isFetching && !isLoading && !isSuccess) {
+      navigate(ROUTES.HOME);
+    }
+  }, [isLoading, isFetching, isSuccess]);
+
+  useEffect(() => {
+    if (!data || !list.length) return;
+
+    dispatch(getRelatedProducts(data.books.isbn13));
+  }, [data, dispatch, list.length]);
+
+  return !data ? (
+    <section className="preloader">Loading...</section>
+  ) : (
+    <>
+      <Product {...data} />
+      <Products products={related} amount={5} title="Related products" />
+    </>
+  );
 };
+
+export default SingleProduct;
