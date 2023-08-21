@@ -30,17 +30,16 @@ const Cart = () => {
         <>
           <div className={styles.list}>
             {cart.map((item) => {
-              const { title, images, price, isbn13 } = item;
+              const { title, image, price, isbn13, quantity } = item;
 
               return (
                 <div className={styles.item} key={isbn13}>
                   <div
                     className={styles.image}
-                    style={{ backgroundImage: `url(${images[0]})` }}
+                    style={{ backgroundImage: `url(${image})` }}
                   />
                   <div className={styles.info}>
                     <h3 className={styles.name}>{title}</h3>
-                    <div className={styles.category}>{category.name}</div>
                   </div>
 
                   <div className={styles.price}>{price}$</div>
@@ -75,11 +74,11 @@ const Cart = () => {
                     </div>
                   </div>
 
-                  <div className={styles.total}>{price * quantity}$</div>
+                  <div className={styles.total}>{(Number(price.replace('$', '')) * quantity).toFixed(2)}$</div>
 
                   <div
                     className={styles.close}
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(isbn13)}
                   >
                     <svg className="icon">
                       <use
@@ -96,7 +95,7 @@ const Cart = () => {
             <div className={styles.total}>
               TOTAL PRICE:{" "}
               <span>
-                {sumBy(cart.map(({ quantity, price }) => quantity * price))}$
+                {sumBy(cart.map(({ quantity, price }) => quantity * Number(price.replace('$', '')))).toFixed(2)}$
               </span>
             </div>
 

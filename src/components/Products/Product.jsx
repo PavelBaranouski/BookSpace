@@ -9,20 +9,12 @@ import styles from "../../styles/Product.module.css";
 import { addItemToCart } from "../../features/user/userSlice";
 
 const Product = (item) => {
-  const { title, price, images, desc } = item;
+  const { title, price, image, desc, year, authors } = item;
 
   const dispatch = useDispatch();
 
-  const [currentImage, setCurrentImage] = useState();
-
-  useEffect(() => {
-    if (!images.length) return;
-
-    setCurrentImage(images[0]);
-  }, [images]);
-
   const addToCart = () => {
-    dispatch(addItemToCart(item));
+    dispatch(addItemToCart({ ...item }));
   };
 
   return (
@@ -30,27 +22,17 @@ const Product = (item) => {
       <div className={styles.images}>
         <div
           className={styles.current}
-          style={{ backgroundImage: `url(${currentImage})` }}
+          style={{ backgroundImage: `url(${image})` }}
         />
-        <div className={styles["images-list"]}>
-          {images.map((image, i) => (
-            <div
-              key={i}
-              className={styles.image}
-              style={{ backgroundImage: `url(${image})` }}
-              onClick={() => setCurrentImage(image)}
-            />
-          ))}
-        </div>
       </div>
       <div className={styles.info}>
         <h1 className={styles.title}>{title}</h1>
-        <div className={styles.price}>{price}$</div>
+        <div className={styles.price}>{price}</div>
         <div className={styles.color}>
-          <span>Authors:</span> Authors
+          <span>Authors:</span> {authors}
         </div>
         <div className={styles.sizes}>
-          <span>year:</span>
+          <span>year: {year}</span>
 
           <div className={styles.list}></div>
         </div>

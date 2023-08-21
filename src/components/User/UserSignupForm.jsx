@@ -24,7 +24,7 @@ export const UserSignupForm = ({
             type="email"
             placeholder="Your email"
             name="email"
-            value={values.email}
+            value={values?.email ?? ''}
             autoComplete="off"
             onChange={handleChange}
             required
@@ -36,7 +36,7 @@ export const UserSignupForm = ({
             type="password"
             placeholder="Your password"
             name="password"
-            value={values.password}
+            value={values?.password ?? ''}
             autoComplete="off"
             onChange={handleChange}
             required

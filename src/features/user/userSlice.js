@@ -14,7 +14,7 @@ const userSlice = createSlice({
             let newCart = [...state.cart];
             const foundIndex = newCart.findIndex(item => item.isbn13 === payload.isbn13);
             if (foundIndex !== -1) {
-                newCart[foundIndex].quantity += 1;
+                newCart[foundIndex].quantity = payload.quantity ? payload.quantity : newCart[foundIndex].quantity + 1;
             } else {
                 newCart.push({ ...payload, quantity: 1 });
             }

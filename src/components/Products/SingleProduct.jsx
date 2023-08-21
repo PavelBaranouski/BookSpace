@@ -16,7 +16,7 @@ const SingleProduct = () => {
 
   const { data, isLoading, isFetching, isSuccess } = useGetProductQuery({
     isbn13,
-  });
+  }); 
 
   useEffect(() => {
     if (!isFetching && !isLoading && !isSuccess) {
@@ -24,18 +24,18 @@ const SingleProduct = () => {
     }
   }, [isLoading, isFetching, isSuccess]);
 
-  useEffect(() => {
-    if (!data || !list.length) return;
+  // useEffect(() => {
+  //   if (!data || !list.length) return;
 
-    dispatch(getRelatedProducts(data.books.isbn13));
-  }, [data, dispatch, list.length]);
+  //   dispatch(getRelatedProducts(data.books.isbn13));
+  // }, [data, dispatch, list.length]);
 
   return !data ? (
     <section className="preloader">Loading...</section>
   ) : (
     <>
       <Product {...data} />
-      <Products products={related} amount={5} title="Related products" />
+      {/* <Products products={related} amount={5} title="Related products" /> */}
     </>
   );
 };

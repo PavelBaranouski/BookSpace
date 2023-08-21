@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import UserFormContainer from "../../features/user/UserFormContainer";
 
 import styles from "../../styles/Header.module.css";
 
-import ROUTES from "../Routes/Routes";
+import { ROUTES } from "../../utils/routes";
 
 import LOGO from "../../images/logo.png";
 import AVATAR from "../../images/avatar.png";
-import { useGetProductQuery } from "../../features/api/apiSlice";
+import { useGetProductsQuery } from "../../features/api/apiSlice";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
+  const { cart } = useSelector(({ user }) => user);
 
   const handleSearch = ({ target: { value } }) => {
     setSearchValue(value);
   };
 
-  const { data, isLoading } = useGetProductQuery({ title: searchValue });
-
-  console.log(data);
+  const { data, isLoading } = useGetProductsQuery({ title: searchValue });
 
   return (
     <div className={styles.header}>
@@ -56,9 +56,9 @@ const Header = () => {
             <div className={styles.box}>
               {isLoading
                 ? "Loading"
-                : !data.length
-                ? "No results"
-                : data.map(({ title, images, isbn13 }) => {
+                : data?.total === '0'
+                  ? "No results"
+                  : data?.books?.map(({ title, image, isbn13 }) => {
                     return (
                       <Link
                         key={isbn13}
@@ -68,7 +68,7 @@ const Header = () => {
                       >
                         <div
                           className={styles.image}
-                          style={{ backgroundImage: `url(${images[0]})` }}
+                          style={{ backgroundImage: `url(${image})` }}
                         />
                         <div className={styles.title}>{title}</div>
                       </Link>
@@ -88,11 +88,11 @@ const Header = () => {
             <svg className={styles["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            {cart.length && <span className={styles.count}>{cart.length}</span>}
+            {cart.length && <span className={styles.count}>{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>}
           </Link>
         </div>
       </div>
-      <UserFormContainer />
+      {/* <UserFormContainer /> */}
     </div>
   );
 };

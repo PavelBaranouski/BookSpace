@@ -13,7 +13,7 @@ const Categories = ({ title, products = [], amount }) => {
       <div className={styles.list}>
         {list.map(({ isbn13, image, title }) => (
           <Link
-            to={`/categories/${isbn13}`}
+            to={`/books/${isbn13}`}
             key={isbn13}
             className={styles.item}
           >

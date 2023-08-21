@@ -13,7 +13,7 @@ export const apiSlice = createApi({
             providesTags: ["books"],
         }),
         getProducts: builder.query({
-            query: ({ params }) => buildUrl("/books", params),
+            query: (params) => ({ url: `/search/${params?.title ?? ''}` }),
             providesTags: ["books"],
         }),
     }),

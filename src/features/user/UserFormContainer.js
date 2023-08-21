@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import UserSignupForm from "../../components/User/UserSignupForm";
-import RegistrationForm from "../../features/user/RegistrationForm";
+import { UserSignupForm } from "../../components/User/UserSignupForm";
+import { RegistrationForm } from "../../features/user/RegistrationForm";
 
 const UserFormContainer = () => {
     const [currentFormType, setCurrentFormType] = useState("login");
