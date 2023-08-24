@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import UserFormContainer from "../../features/user/UserFormContainer";
-
 import styles from "../../styles/Header.module.css";
 
 import { ROUTES } from "../../utils/routes";
@@ -22,6 +20,14 @@ const Header = () => {
 
   const { data, isLoading } = useGetProductsQuery({ title: searchValue });
 
+  const [theme, setTheme] = useState("dark"); // Начальная тема
+
+  const handleThemeToggle = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.body.setAttribute("data-theme", newTheme);
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
@@ -29,7 +35,6 @@ const Header = () => {
           <img src={LOGO} alt="BOOKSPACE" className="header__logo" />
         </Link>
       </div>
-
       <div className={styles.info}>
         <div className={styles.user}>
           <div
@@ -52,13 +57,14 @@ const Header = () => {
               value={searchValue}
             />
           </div>
+
           {searchValue && (
             <div className={styles.box}>
               {isLoading
                 ? "Loading"
-                : data?.total === '0'
-                  ? "No results"
-                  : data?.books?.map(({ title, image, isbn13 }) => {
+                : data?.total === "0"
+                ? "No results"
+                : data?.books?.map(({ title, image, isbn13 }) => {
                     return (
                       <Link
                         key={isbn13}
@@ -77,7 +83,15 @@ const Header = () => {
             </div>
           )}
         </form>
-
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="1"
+          id={styles.theme_toggle}
+          value={theme === "light" ? "0" : "1"}
+          onChange={handleThemeToggle}
+        />
         <div className={styles.account}>
           <Link to={ROUTES.HOME} className={styles.favourites}>
             <svg className={styles["icon-fav"]}>
@@ -88,7 +102,11 @@ const Header = () => {
             <svg className={styles["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            {cart.length && <span className={styles.count}>{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>}
+            {cart.length && (
+              <span className={styles.count}>
+                {cart.reduce((sum, item) => sum + item.quantity, 0)}
+              </span>
+            )}
           </Link>
         </div>
       </div>

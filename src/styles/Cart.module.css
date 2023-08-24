@@ -8,8 +8,9 @@ cart {
   .empty {
     margin-top: 24px;
     font-size: 24px;
-    line-height: 30px;
+    line-height: 45px;
     color: var(--light);
+    text-align: center;
   }
   
   .list {
@@ -28,7 +29,7 @@ cart {
     display: grid;
     grid-template-columns: 100px 2fr 1fr 1.5fr 1fr 16px;
     align-items: center;
-    height: 70px;
+    height: 105px;
   }
   
   .image {
@@ -123,6 +124,7 @@ cart {
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
+    height: 75px;
   }
   
   .total {

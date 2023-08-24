@@ -9,7 +9,7 @@ export const getProducts = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const res = await axios(`${BASE_URL}/new`);
-            return res.data.books; // Возвращаем только список книг из ответа
+            return res.data.books;
         } catch (err) {
             console.log(err);
             return thunkAPI.rejectWithValue(err);

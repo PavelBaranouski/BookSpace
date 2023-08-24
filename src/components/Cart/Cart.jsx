@@ -25,7 +25,7 @@ const Cart = () => {
       <h2 className={styles.title}>Your cart</h2>
 
       {!cart.length ? (
-        <div className={styles.empty}>Here is empty</div>
+        <div className={styles.empty}>Here is empty (-_-)</div>
       ) : (
         <>
           <div className={styles.list}>
@@ -74,7 +74,9 @@ const Cart = () => {
                     </div>
                   </div>
 
-                  <div className={styles.total}>{(Number(price.replace('$', '')) * quantity).toFixed(2)}$</div>
+                  <div className={styles.total}>
+                    {(Number(price.replace("$", "")) * quantity).toFixed(2)}$
+                  </div>
 
                   <div
                     className={styles.close}
@@ -95,7 +97,13 @@ const Cart = () => {
             <div className={styles.total}>
               TOTAL PRICE:{" "}
               <span>
-                {sumBy(cart.map(({ quantity, price }) => quantity * Number(price.replace('$', '')))).toFixed(2)}$
+                {sumBy(
+                  cart.map(
+                    ({ quantity, price }) =>
+                      quantity * Number(price.replace("$", ""))
+                  )
+                ).toFixed(2)}
+                $
               </span>
             </div>
 

@@ -9,6 +9,7 @@ body {
     color: #fff;
     font-weight: 500;
     padding-bottom: 20px;
+    transition: background-color 0.3s ease;
   }
   
   h1,
@@ -22,6 +23,7 @@ body {
     padding: 0;
     font-size: 16px;
     line-height: 24px;
+    color: inherit;
   }
   
   * {
@@ -128,3 +130,64 @@ body {
     align-items: center;
     justify-content: center;
   }
+
+body[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --dark: #121212;
+  --grey: #777777;
+  
+  color: #fff; 
+}
+
+body[data-theme="light"] {
+  --bg: #ffffff;
+  --dark: #f4f4f4;
+  --grey: #333333;
+  --div: #0000;
+
+  
+  color: #121212; 
+  
+}
+
+  /* Стили для ползунка темы */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 5%;
+  height: 10px;
+  background: var(--grey); /* Цвет фона для ползунка */
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-radius: 5px;
+}
+
+/* Стили для ползунка при наведении */
+input[type="range"]:hover {
+  opacity: 1;
+}
+
+/* Стили для заполненной части ползунка */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 1%;
+  height: 20px;
+  cursor: pointer;
+  background: var(--violet); /* Цвет заполненной части */
+  border-radius: 5px;
+}
+
+/* Стили для ползунка */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background: var(--dark); /* Цвет ползунка */
+  border-radius: 50%;
+}
+
+/* Стили для ползунка в активном состоянии */
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: none;
+}
